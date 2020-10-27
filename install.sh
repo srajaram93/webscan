@@ -4,6 +4,7 @@ apt update
 apt install python3-pip -y
 apt install golang-go -y
 apt-get install jq -y
+apt-get install cargo -y
 
 #Adding Files
 
@@ -30,7 +31,7 @@ ln -s /opt/ffuf/bin/ffuf /usr/bin/ffuf
 git clone https://github.com/Edu4rdSHL/findomain.git
 cd findomain
 cargo build --release
-sudo cp target/release/findomain /usr/bin/
+cp target/release/findomain /usr/bin/
 cd /root/
 
 # ASSETFINDER
