@@ -5,6 +5,8 @@ apt install python3-pip -y
 apt install golang-go -y
 apt-get install jq -y
 apt-get install cargo -y
+pip install colored
+pip3 install colored
 
 #Adding Files
 
