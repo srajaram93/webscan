@@ -225,7 +225,7 @@ os.system("echo 'DIRECTORY BRUTEFORCED LIST \e[32mFINISHED\e[0m'\n")
 os.system("echo '\n SEARCHING FOR DIFFERENCES BETWEEN \e[31m[CURRENT DIRECTORY BRUTEFORCE LIST AND PREVIOUS DIRECTORY BRUTEFORCE LIST]\e[0m'\n")
 os.system("diff /root/webscan-output/all/all_dirbrute.txt /root/webscan-output/all/old_all_dirbrute.txt | sed 's/<//g; s/>//g' | sort -u -o /root/webscan-output/dirbrute_diff.txt")
 os.system("cat /root/webscan-output/dirbrute_diff.txt |sort -u >> /root/webscan-output/all/all_dirbrute_diff.txt")
-os.system("sort -u /root/webscan-output/all/all_dirbute_diff.txt -o /root/webscan-output/all/all_dirbrute_diff.txt")
+os.system("sort -u /root/webscan-output/all/all_dirbrute_diff.txt -o /root/webscan-output/all/all_dirbrute_diff.txt")
 
 diff_brute = os.stat("/root/webscan-output/dirbrute_diff.txt").st_size == 0
 if diff_brute == False:
