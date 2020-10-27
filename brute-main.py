@@ -44,7 +44,7 @@ def scanner(b,d_str,key):
 
         ## LAUNCH Directory Bruteforce
         os.system("echo '\nRUNNING \e[31m[Directory Bruteforce]\e[0m'")
-        os.system("ffuf -w /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt:DOMAIN -w /root/webscan/endpoint.txt -u DOMAIN/FUZZ -t 100 -mc 200 -o /root/webscan/Targets/"+b+"/"+b+".bruteurls.csv -of csv")
+        os.system("ffuf -w /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt:DOMAIN -w /root/webscan/endpoints.txt -u DOMAIN/FUZZ -t 100 -mc 200 -o /root/webscan/Targets/"+b+"/"+b+".bruteurls.csv -of csv")
         os.system("cat /root/webscan/Targets/"+b+"/"+b+".bruteurls.csv |cut -d , -f3|qsreplace -a >> /root/webscan/Targets/"+b+"/Hosts/"+b+".dirbrute_80_443_web.txt")
         os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".dirbrute_80_443_web.txt /root/webscan-output/"+b+"/")
         os.system("echo 'Directory Bruteforce \e[32mFINISH\e[0m'")
