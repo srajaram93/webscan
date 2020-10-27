@@ -205,7 +205,7 @@ if os.path.exists("/root/webscan-output/subdomains_diff.txt"):
 	os.remove("/root/webscan-output/subdomains_diff.txt")
 os.system("diff /root/webscan-output/all/stripped_all_resolved.txt /root/webscan-output/all/old_stripped_all_resolved.txt | sed 's/<//g; s/>//g' | sort -u >> /root/webscan-output/subdomains_diff.txt")
 os.system("cat /root/webscan-output/subdomains_diff.txt >> /root/webscan-output/all/all_subdomains_diff.txt")
-
+os.system("sort -u /root/webscan-output/all/all_subdomains_diff.txt -o /root/webscan-output/all/all_subdomains_diff.txt")
 diff_sub = os.stat("/root/webscan-output/subdomains_diff.txt").st_size == 0
 if diff_sub == False:
 	print("DIFFERENCE FOUND in SUBDOMAINS when compared to previous scan! \n")
@@ -243,11 +243,11 @@ os.system("echo 'SPIDERED PATHS LIST \e[32mFINISHED\e[0m'\n")
 
 #Compile list of spidered paths differences between previous scan and current
 os.system("echo '\n SEARCHING FOR DIFFERENCES BETWEEN \e[31m[CURRENT SPIDERED PATHS AND PREVIOUS SPIDERED PATHS]\e[0m'\n")
-os.system("diff /root/webscan-output/all/all_spidered.txt /root/webscan-output/all/old_all_spidered.txt | sed 's/<//g; s/>//g' | sort -u -o /root/webscan-output/spidered.txt")
-os.system("cat /root/webscan-output/spidered.txt |sort -u >> /root/webscan-output/all/all_spidered.txt")
-os.system("sort -u /root/webscan-output/all/all_spidered.txt -o /root/webscan-output/all/all_spidered.txt")
+os.system("diff /root/webscan-output/all/all_spidered.txt /root/webscan-output/all/old_all_spidered.txt | sed 's/<//g; s/>//g' | sort -u -o /root/webscan-output/spidered_diff.txt")
+os.system("cat /root/webscan-output/spidered_diff.txt |sort -u >> /root/webscan-output/all/all_spidered_diff.txt")
+os.system("sort -u /root/webscan-output/all/all_spidered_diff.txt -o /root/webscan-output/all/all_spidered_diff.txt")
 
-diff_spider = os.stat("/root/webscan-output/spidered.txt").st_size == 0
+diff_spider = os.stat("/root/webscan-output/spidered_diff.txt").st_size == 0
 if diff_spider == False:
 	print("DIFFERENCE FOUND in SPIDERED PATHS when compared to previous scan! \n")
 else:
@@ -263,9 +263,9 @@ os.system("echo 'XSS LIST \e[32mFINISHED\e[0m'\n")
 
 #Compile list of Cross-Site-Scripting difference between previous scan and current
 os.system("echo '\n SEARCHING FOR DIFFERENCES BETWEEN \e[31m[CURRENT XSS FINDINGS AND PREVIOUS XSS FINDINGS]\e[0m'\n")
-os.system("diff /root/webscan-output/all/all_KXSS.txt /root/webscan-output/all/old_all_KXSS.txt | sed 's/<//g; s/>//g' | sort -u -o /root/webscan-output/KXSS.txt")
-os.system("cat /root/webscan-output/KXSS.txt |sort -u >> /root/webscan-output/all/all_KXSS.txt")
-os.system("sort -u /root/webscan-output/all/all_KXSS.txt -o /root/webscan-output/all/all_KXSS.txt")
+os.system("diff /root/webscan-output/all/all_KXSS.txt /root/webscan-output/all/old_all_KXSS.txt | sed 's/<//g; s/>//g' | sort -u -o /root/webscan-output/KXSS_diff.txt")
+os.system("cat /root/webscan-output/KXSS_diff.txt |sort -u >> /root/webscan-output/all/all_KXSS_diff.txt")
+os.system("sort -u /root/webscan-output/all/all_KXSS_diff.txt -o /root/webscan-output/all/all_KXSS_diff.txt")
 
 diff_xss = os.stat("/root/webscan-output/KXSS_diff.txt").st_size == 0
 if diff_xss == False:
