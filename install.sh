@@ -7,6 +7,8 @@ apt-get install jq -y
 apt-get install cargo -y
 pip install colored
 pip3 install colored
+pip install tldextract
+pip3 install tldextract
 
 #Adding Files
 
