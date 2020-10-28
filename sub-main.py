@@ -85,7 +85,7 @@ def scanner(b,d_str,key):
         if not os.path.exists("/root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv"):
         	print("No Subdomain found during Bruteforce")
         else:
-        	os.system("cat /root/webscan-output/Targets/"+b+"/"+b+".brutesubdomains.csv |cut -d , -f3|qsreplace -a >> /root/webscan/Target/"+b+"/"+b+".brutesubdomains.txt")
+        	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv |cut -d , -f3|qsreplace -a >> /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
         os.system("echo 'SUBDOMAIN BRUTEFORCE \e[32mFINISHED\e[0m'\n")
 
         ## REMOVING DUPLICATES
