@@ -85,7 +85,7 @@ def scanner(b,d_str,key):
         if not os.path.exists("/root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv"):
         	print("No Subdomain found during Bruteforce")
         else:
-        	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv |cut -d , -f3|qsreplace -a >> /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
+        	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv |cut -d , -f3|qsreplace -a > /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
         os.system("echo 'SUBDOMAIN BRUTEFORCE \e[32mFINISHED\e[0m'\n")
 
         ## REMOVING DUPLICATES
@@ -100,7 +100,6 @@ def scanner(b,d_str,key):
         os.system("cat /root/webscan/Targets/"+b+"/"+b+".alldomains.txt > /root/webscan/Targets/"+b+"/"+b+".resolved.txt")
         os.system("mv /root/webscan/Targets/"+b+"/"+b+".resolved.txt /root/webscan/Targets/"+b+"/Hosts/")
 	os.system("cat /root/webscan/Targets/"+b+"/*.txt > /root/webscan/Targets/"+b+"/Hosts/"+b+".unresolved.txt")
-        os.system("rm /root/webscan/Targets/"+b+"/*.txt")
         os.system("sed 's/http:\/\///g; s/https:\/\///g; s/nwww\.//g; s/www\.//g; s/\*\.//g' /root/webscan/Targets/"+b+"/Hosts/"+b+".resolved.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:81 -p https:300 -p https:591 -p https:593 -p https:832 -p https:981 -c 50 > /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:1010 -p https:1311 -p https:2082 -p https:2087 -p https:2095 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
@@ -117,8 +116,10 @@ def scanner(b,d_str,key):
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:9200 -p https:9443 -p https:9800 -p https:9981 -p https:12443 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:16080 -p https:18091 -p https:18092 -p https:20720 -p https:28017 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt >> /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
 	os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt /root/webscan-output/"+b+"/")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+	os.system("rm /root/webscan/Targets/"+b+"/*.txt")
 
 d_str =""
 
