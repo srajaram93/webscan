@@ -81,7 +81,7 @@ def scanner(b,d_str,key):
         
         ## LAUNCH SUBDOMAIN BRUTEFORCE
         os.system("echo '\nRUNNING \e[31m[SUBDOMAIN BRUTEFORCE]\e[0m'\n")
-        os.system("ffuf -w /root/wordlists/subdomains.txt -u https://FUZZ."+d_str+" -H https://FUZZ."+d_str+" -H http://FUZZ."+d_str+" -t 100 -mc 200 -o /root/webscan-output/Targets/"+b+"/"+b+".brutesubdomains.csv -of csv")
+        os.system("ffuf -w /root/wordlists/subdomains.txt -u https://FUZZ."+d_str+" -H https://FUZZ."+d_str+" -H http://FUZZ."+d_str+" -t 100 -mc 200 -o /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv -of csv")
         if not os.path.exists("/root/webscan-output/Targets/"+b+"/"+b+".brutesubdomains.csv"):
         	print("No Subdomain found during Bruteforce")
         else:
