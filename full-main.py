@@ -81,8 +81,8 @@ def scanner(b,d_str,key):
         
         ## LAUNCH SUBDOMAIN BRUTEFORCE
         os.system("echo '\nRUNNING \e[31m[SUBDOMAIN BRUTEFORCE]\e[0m'\n")
-        os.system("ffuf -w /root/wordlists/subdomains.txt -u https://FUZZ."+d_str+" -H https://FUZZ."+d_str+" -H http://FUZZ."+d_str+" -t 100 -mc 200 -o /root/webscan-output/Targets/"+b+"/"+b+".brutesubdomains.csv -of csv")
-        if not os.path.exists("/root/webscan-output/Targets/"+b+"/"+b+".brutesubdomains.csv"):
+        os.system("ffuf -w /root/wordlists/subdomains.txt -u https://FUZZ."+d_str+" -H https://FUZZ."+d_str+" -H http://FUZZ."+d_str+" -t 100 -mc 200 -o /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv -of csv")
+        if not os.path.exists("/root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv"):
         	print("No Subdomain found during Bruteforce")
         else:
         	os.system("cat /root/webscan-output/Targets/"+b+"/"+b+".brutesubdomains.csv |cut -d , -f3|qsreplace -a >> /root/webscan/Target/"+b+"/"+b+".brutesubdomains.txt")
@@ -98,7 +98,7 @@ def scanner(b,d_str,key):
         ## LAUNCH LIVEHOSTS
         os.system("echo '\nRUNNING \e[31m[LIVEHOSTS]\e[0m'\n")
         os.system("cat /root/webscan/Targets/"+b+"/"+b+".alldomains.txt > /root/webscan/Targets/"+b+"/"+b+".resolved.txt")
-	os.system("cat /root/websca/Targets/"+b+"/*.txt > /root/webscan/Targets/"+b+"/Hosts/"+b+".unresolved.txt")
+	os.system("cat /root/webscan/Targets/"+b+"/*.txt > /root/webscan/Targets/"+b+"/Hosts/"+b+".unresolved.txt")
         os.system("mv /root/webscan/Targets/"+b+"/"+b+".resolved.txt /root/webscan/Targets/"+b+"/Hosts/")
         os.system("rm /root/webscan/Targets/"+b+"/*.txt")
         os.system("sed 's/http:\/\///g; s/https:\/\///g; s/nwww\.//g; s/www\.//g; s/\*\.//g' /root/webscan/Targets/"+b+"/Hosts/"+b+".resolved.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt")
