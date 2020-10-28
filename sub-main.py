@@ -99,7 +99,7 @@ def scanner(b,d_str,key):
         os.system("echo '\nRUNNING \e[31m[LIVEHOSTS]\e[0m'\n")
         os.system("cat /root/webscan/Targets/"+b+"/"+b+".alldomains.txt > /root/webscan/Targets/"+b+"/"+b+".resolved.txt")
         os.system("mv /root/webscan/Targets/"+b+"/"+b+".resolved.txt /root/webscan/Targets/"+b+"/Hosts/")
-	os.system("cat /root/websca/Targets/"+b+"/*.txt > /root/webscan/Targets/"+b+"/Hosts/"+b+".unresolved.txt")
+	os.system("cat /root/webscan/Targets/"+b+"/*.txt > /root/webscan/Targets/"+b+"/Hosts/"+b+".unresolved.txt")
         os.system("rm /root/webscan/Targets/"+b+"/*.txt")
         os.system("sed 's/http:\/\///g; s/https:\/\///g; s/nwww\.//g; s/www\.//g; s/\*\.//g' /root/webscan/Targets/"+b+"/Hosts/"+b+".resolved.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:81 -p https:300 -p https:591 -p https:593 -p https:832 -p https:981 -c 50 > /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
