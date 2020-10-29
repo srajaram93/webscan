@@ -116,6 +116,7 @@ def scanner(b,d_str,key):
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:9200 -p https:9443 -p https:9800 -p https:9981 -p https:12443 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:16080 -p https:18091 -p https:18092 -p https:20720 -p https:28017 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+	os.system("sed -i '1d' /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt >> /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
 	os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt /root/webscan-output/"+b+"/")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
