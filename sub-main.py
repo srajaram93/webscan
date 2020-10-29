@@ -168,8 +168,8 @@ os.system("echo 'LIST WITHOUT PREFIX \e[32mFINISHED\e[0m'\n")
 
 #Compile list of IP addresses of all resolved domains
 os.system("echo '\nCREATING \e[31m[RESOLVED IP LIST]\e[0m'\n")
-os.system("awk < /root/webscan-output/all/stripped_all_resolved.txt '{ system('resolveip -s ' $1) }' > /root/webscan-output/all/all_resolved_IPs.txt")
-os.system("echo 'RESOLVED IP LIST \e[32mFINISHED\e[0m'\n")
+os.system("dig -f /root/webscan-output/all/stripped_all_resolved.txt | grep IN | grep -v ";" | tr -s "[:blank:]" "," >> /root/webscan-output/all/all_resolved_IPs.csv")
+os.system("eco 'RESOLVED IP LIST \e[32mFINISHED\e[0m'\n")
 
 #Compile list of of difference between previous scan and current
 os.system("echo '\nSEARCHING\e[31m[DIFFERENCES BETWEEN CURRENT SUBDOMAINS AND PREVIOUS SUBDOMAINS]\e[0m'\n")
