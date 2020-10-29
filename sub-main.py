@@ -118,9 +118,9 @@ def scanner(b,d_str,key):
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
 	os.system("sed -i '1d' /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
 	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt >> /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+	os.system("sort -u /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt -o /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
 	os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt /root/webscan-output/"+b+"/")
 	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
-	os.system("rm /root/webscan/Targets/"+b+"/*.txt")
 
 d_str =""
 
