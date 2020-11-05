@@ -123,8 +123,6 @@ resistoflex.cn
 craneconfig.eu
 easitrax.com
 cranecompass.com
-craneindiaasnuat.azurewebsites.net
-craneindiaccr-ocr.azurewebsites.net
 mtr.cranesupply.com
 vikingjohnson.plus.com
 e-vending.net
