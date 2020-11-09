@@ -81,14 +81,15 @@ def scanner(b,d_str,key):
         
         ## LAUNCH SUBDOMAIN BRUTEFORCE
         os.system("echo '\nRUNNING \e[31m[SUBDOMAIN BRUTEFORCE]\e[0m'\n")
-	if b != 'cranevs' || 'merrimacind':
+	if b not in ['cranevs','merrimacind']:
 		os.system("ffuf -w /root/wordlists/subdomains.txt -u https://FUZZ."+d_str+" -H https://FUZZ."+d_str+" -H http://FUZZ."+d_str+" -t 100 -mc 200 -o /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv -of csv")
         	if not os.path.exists("/root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv"):
         		print("No Subdomain found during Bruteforce")
        		else:
         		os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv |cut -d , -f2|qsreplace -a > /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
 			os.system("echo 'SUBDOMAIN BRUTEFORCE \e[32mFINISHED\e[0m'\n")
-
+	else:
+		print("Skipping Subdomain Bruteforce")
         ## REMOVING DUPLICATES
         os.system("echo '\nREMOVING \e[31m[DUPLICATES]\e[0m'\n")
         os.system("sort /root/webscan/Targets/"+b+"/*.txt | uniq > /root/webscan/Targets/"+b+"/"+b+".alldomains.txt")
