@@ -12,6 +12,10 @@ pip3 install tldextract
 
 #Adding Files
 
+if [ ! -d "/root/webscan/Tools/GitHubTool/github-endpoints.py"]
+then
+  git clone https://github.com/gwen001/github-search.git /root/webscan/Tools/GitHubTool/
+fi
 
 mkdir /root/wordlists
 wget https://gist.githubusercontent.com/nullenc0de/96fb9e934fc16415fbda2f83f08b28e7/raw/146f367110973250785ced348455dc5173842ee4/content_discovery_nullenc0de.txt -O /root/wordlists/endpoints.txt
