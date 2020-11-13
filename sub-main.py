@@ -6,20 +6,6 @@ import time
 print "{: ^203s}".format("USAGE: python sub-main.py domain.txt OR python sub-main.py domain.com \n")
  
 
-#Build Necessary Directories
-if not os.path.isdir("/root/webscan"):
-	os.mkdir("/root/webscan")
-if not os.path.exists("/root/webscan/domains.txt"):
-	os.system("touch /root/webscan/domains.txt")
-if not os.path.isdir("/root/webscan/Targets"):
-	os.mkdir("/root/webscan/Targets")
-if not os.path.isdir("/root/webscan/Tools/"):
-	os.mkdir("/root/webscan/Tools/")
-if not os.path.isdir("/root/webscan/Tools/GitHubTool"):
-	os.mkdir("/root/webscan/Tools/GitHubTool")
-if not os.path.exists("/root/webscan/Tools/GitHubTool/github-endpoints.py"):
-	os.system("git clone https://github.com/gwen001/github-search.git /root/webscan/Tools/GitHubTool/")
-	
 ##Main Function
 	
 def scanner(b,d_str,key):
@@ -81,7 +67,7 @@ def scanner(b,d_str,key):
         
         ## LAUNCH SUBDOMAIN BRUTEFORCE
         os.system("echo '\nRUNNING \e[31m[SUBDOMAIN BRUTEFORCE]\e[0m'\n")
-	if b not in ['cranevs','merrimacind']:
+	if b not in ['cranevs','merrimacind','cranesimplifi']:
 		os.system("ffuf -w /root/wordlists/subdomains.txt -u https://FUZZ."+d_str+" -H https://FUZZ."+d_str+" -H http://FUZZ."+d_str+" -t 100 -mc 200 -o /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv -of csv")
         	if not os.path.exists("/root/webscan/Targets/"+b+"/"+b+".brutesubdomains.csv"):
         		print("No Subdomain found during Bruteforce")
@@ -98,31 +84,32 @@ def scanner(b,d_str,key):
 
 
         ## LAUNCH LIVEHOSTS
-        os.system("echo '\nRUNNING \e[31m[LIVEHOSTS]\e[0m'\n")
-        os.system("cat /root/webscan/Targets/"+b+"/"+b+".alldomains.txt > /root/webscan/Targets/"+b+"/"+b+".resolved.txt")
+	os.system("echo '\nRUNNING \e[31m[LIVEHOSTS]\e[0m'\n")
+	os.system("cat /root/webscan/Targets/"+b+"/"+b+".alldomains.txt > /root/webscan/Targets/"+b+"/"+b+".resolved.txt")
         os.system("mv /root/webscan/Targets/"+b+"/"+b+".resolved.txt /root/webscan/Targets/"+b+"/Hosts/")
 	os.system("cat /root/webscan/Targets/"+b+"/*.txt > /root/webscan/Targets/"+b+"/Hosts/"+b+".unresolved.txt")
         os.system("sed 's/http:\/\///g; s/https:\/\///g; s/nwww\.//g; s/www\.//g; s/\*\.//g' /root/webscan/Targets/"+b+"/Hosts/"+b+".resolved.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:81 -p https:300 -p https:591 -p https:593 -p https:832 -p https:981 -c 50 > /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:1010 -p https:1311 -p https:2082 -p https:2087 -p https:2095 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:2096 -p https:2480 -p https:3000 -p https:3128 -p https:3333 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:4243 -p https:4567 -p https:4711 -p https:4712 -p https:4993 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:5000 -p https:5104 -p https:5108 -p https:5800 -p https:6543 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:7000 -p https:7396 -p https:7474 -p https:8000 -p https:8001 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8008 -p https:8014 -p https:8042 -p https:8069 -p https:8080 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8081 -p https:8083 -p https:8088 -p https:8090 -p https:8091 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8118 -p https:8123 -p https:8172 -p https:8222 -p https:8243 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8280 -p https:8281 -p https:8333 -p https:8443 -p https:8500 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8834 -p https:8880 -p https:8888 -p https:8983 -p https:9000 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:9043 -p https:9060 -p https:9080 -p https:9090 -p https:9091 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:9200 -p https:9443 -p https:9800 -p https:9981 -p https:12443 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:16080 -p https:18091 -p https:18092 -p https:20720 -p https:28017 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
-	os.system("sed -i '1d' /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
-	os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt >> /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
-	os.system("sort -u /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt -o /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
-	os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt /root/webscan-output/"+b+"/")
-	os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+	if b not in ['cranevs','merrimacind','cranesimplifi']:
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:81 -p https:300 -p https:591 -p https:593 -p https:832 -p https:981 -c 50 > /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:1010 -p https:1311 -p https:2082 -p https:2087 -p https:2095 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:2096 -p https:2480 -p https:3000 -p https:3128 -p https:3333 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:4243 -p https:4567 -p https:4711 -p https:4712 -p https:4993 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:5000 -p https:5104 -p https:5108 -p https:5800 -p https:6543 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:7000 -p https:7396 -p https:7474 -p https:8000 -p https:8001 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8008 -p https:8014 -p https:8042 -p https:8069 -p https:8080 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8081 -p https:8083 -p https:8088 -p https:8090 -p https:8091 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8118 -p https:8123 -p https:8172 -p https:8222 -p https:8243 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8280 -p https:8281 -p https:8333 -p https:8443 -p https:8500 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:8834 -p https:8880 -p https:8888 -p https:8983 -p https:9000 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:9043 -p https:9060 -p https:9080 -p https:9090 -p https:9091 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:9200 -p https:9443 -p https:9800 -p https:9981 -p https:12443 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".stripped_all_resolved.txt | fprobe -p https:16080 -p https:18091 -p https:18092 -p https:20720 -p https:28017 -c 50 -s >> /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".80_443_web.txt | sort -u > /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+		os.system("sed -i '1d' /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt")
+		os.system("cat /root/webscan/Targets/"+b+"/"+b+".brutesubdomains.txt >> /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+		os.system("sort -u /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt -o /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
+		os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt /root/webscan-output/"+b+"/")
+		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
 
 d_str =""
 
