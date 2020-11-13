@@ -12,28 +12,28 @@ pip3 install tldextract
 
 #Building Directories and Adding Files
 
-if [ ! -d "/root/webscan/Tools/GitHubTool/github-endpoints.py"]
+if [ ! -d "/root/webscan/Tools/GitHubTool/github-endpoints.py" ]
 then
   git clone https://github.com/gwen001/github-search.git /root/webscan/Tools/GitHubTool/
-elif [ ! -d "/root/webscan"]
+elif [ ! -d "/root/webscan" ]
 then	
   mkdir /root/webscan
-elif [ ! -d "/root/webscan/domains.txt"]
+elif [ ! -d "/root/webscan/domains.txt" ]
 then
 	touch /root/webscan/domains.txt
-elif [ ! -d "/root/webscan/Targets"]
+elif [ ! -d "/root/webscan/Targets" ]
 then
   mkdir /root/webscan/Targets
-elif [ ! -d "/root/webscan/Tools/"]
+elif [ ! -d "/root/webscan/Tools/" ]
 then
   mkdir /root/webscan/Tools/
-elif [ ! -d "/root/webscan/Tools/GitHubTool"]
+elif [ ! -d "/root/webscan/Tools/GitHubTool" ]
 then
   mkdir /root/webscan/Tools/GitHubTool
-elif [ ! -d "/root/wordlists"]
+elif [ ! -d "/root/wordlists" ]
 then
   mkdir /root/wordlists
-elif [ ! -d "/root/githubkey/"]
+elif [ ! -d "/root/githubkey/" ]
 then
   mkdir /root/githubkey/
 fi 
