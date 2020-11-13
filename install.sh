@@ -18,7 +18,7 @@ then
 elif [ ! -d "/root/webscan"]
 then	
   mkdir /root/webscan
-elif [ !-d "/root/webscan/domains.txt"]
+elif [ ! -d "/root/webscan/domains.txt"]
 then
 	touch /root/webscan/domains.txt
 elif [ ! -d "/root/webscan/Targets"]
