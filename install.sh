@@ -10,18 +10,38 @@ pip3 install colored
 pip install tldextract
 pip3 install tldextract
 
-#Adding Files
+#Building Directories and Adding Files
 
 if [ ! -d "/root/webscan/Tools/GitHubTool/github-endpoints.py"]
 then
   git clone https://github.com/gwen001/github-search.git /root/webscan/Tools/GitHubTool/
-fi
+elif [ ! -d "/root/webscan"]
+then	
+  mkdir /root/webscan
+elif [ !-d "/root/webscan/domains.txt"]
+then
+	touch /root/webscan/domains.txt
+elif [ ! -d "/root/webscan/Targets"]
+then
+  mkdir /root/webscan/Targets
+elif [ ! -d "/root/webscan/Tools/"]
+then
+  mkdir /root/webscan/Tools/
+elif [ ! -d "/root/webscan/Tools/GitHubTool"]
+then
+  mkdir /root/webscan/Tools/GitHubTool
+elif [ ! -d "/root/wordlists"]
+then
+  mkdir /root/wordlists
+elif [ ! -d "/root/githubkey/"]
+then
+  mkdir /root/githubkey/
+fi 
 
-mkdir /root/wordlists
 wget https://gist.githubusercontent.com/nullenc0de/96fb9e934fc16415fbda2f83f08b28e7/raw/146f367110973250785ced348455dc5173842ee4/content_discovery_nullenc0de.txt -O /root/wordlists/endpoints.txt
 wget https://gist.githubusercontent.com/srajaram93/5f2e20027702b5e96f3c1074878cce06/raw/c97c8f8d07a8aa23f718da1960bdb17b0a647d18/10k-subdomains.txt -O /root/wordlists/subdomains.txt
 wget https://raw.githubusercontent.com/OWASP/Amass/master/examples/config.ini -O /root/config.ini
-mkdir /root/githubkey/; echo 71356b8cfdadd4e051ac44776aac88321be31d19 > /root/githubkey/key.txt
+echo 71356b8cfdadd4e051ac44776aac88321be31d19 > /root/githubkey/key.txt
 
 #Installing Required Tools
 
