@@ -110,7 +110,8 @@ def scanner(b,d_str,key):
 		os.system("sort -u /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt -o /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
 		os.system("cp /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt /root/webscan-output/"+b+"/")
 		os.system("cat /root/webscan/Targets/"+b+"/Hosts/"+b+".new_80_443_web.txt")
-
+	else:
+		print("Skipping Livecheck")
 d_str =""
 
 with open('/root/githubkey/key.txt','r') as gikey:
